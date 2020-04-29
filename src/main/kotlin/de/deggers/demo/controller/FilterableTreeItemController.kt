@@ -12,10 +12,17 @@ class FilterableTreeItemController : Controller() {
     private val secondFolder = FilterableTreeItem(Actor("Second", "Folder"))
     private val thirdFolder = FilterableTreeItem(Actor("Third", "Folder"))
 
+    private val firstFolderSecondLevel = FilterableTreeItem(Actor("Second", "Level"))
+
     private val firstFolderActors = observableListOf(
         Actor("Achim", "Müller"),
         Actor("Hans", "Stein"),
         Actor("Michael", "Kamar")
+    )
+
+    private val firstFolderSecondLevelActors = observableListOf(
+        Actor("Deep", "AI"),
+        Actor("Max", "Müller")
     )
 
     private val secondFolderActors = observableListOf(
@@ -29,9 +36,13 @@ class FilterableTreeItemController : Controller() {
     )
 
     init {
-        root.internalChildren.addAll(firstFolder, secondFolder, thirdFolder)
-        firstFolderActors.forEach(Consumer { firstFolder.internalChildren += FilterableTreeItem(it) })
-        secondFolderActors.forEach(Consumer { secondFolder.internalChildren += FilterableTreeItem(it) })
-        thirdFolderActors.forEach(Consumer { thirdFolder.internalChildren += FilterableTreeItem(it) })
+        root.addAll(firstFolder, secondFolder, thirdFolder)
+        firstFolder.add(firstFolderSecondLevel)
+
+        firstFolderActors.forEach(Consumer { firstFolder.add(FilterableTreeItem(it)) })
+        firstFolderSecondLevelActors.forEach(Consumer { firstFolderSecondLevel.add(FilterableTreeItem(it)) })
+        secondFolderActors.forEach(Consumer { secondFolder.add(FilterableTreeItem(it)) })
+        thirdFolderActors.forEach(Consumer { thirdFolder.add(FilterableTreeItem(it)) })
+
     }
 }

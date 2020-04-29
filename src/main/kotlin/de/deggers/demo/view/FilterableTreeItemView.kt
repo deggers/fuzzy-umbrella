@@ -35,7 +35,7 @@ class FilterableTreeItemView : View() {
                                     lastName = lastName.text
                                 )
                             )
-                            ctrl.firstFolder.internalChildren.add(treeItem)
+                            ctrl.firstFolder.add(treeItem)
                         }
                     }
                     addBtn.disableProperty().bind(Bindings.isEmpty(lastName.textProperty()))
@@ -52,7 +52,7 @@ class FilterableTreeItemView : View() {
                 }
 
                 populate { item ->
-                    if (item == root) item.value
+                    if (item.children.isEmpty()) item.value
                     item.children.map { it.value }
                 }
 
