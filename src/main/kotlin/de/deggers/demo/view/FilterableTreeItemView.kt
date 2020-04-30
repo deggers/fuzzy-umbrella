@@ -2,6 +2,7 @@ package de.deggers.demo.view
 
 import de.deggers.demo.FilterableTreeItem
 import de.deggers.demo.controller.FilterableTreeItemController
+import de.deggers.demo.fragment.FilterableTreeFragment
 import de.deggers.demo.model.Actor
 import javafx.beans.binding.Bindings
 import tornadofx.*
@@ -47,9 +48,7 @@ class FilterableTreeItemView : View() {
                 isShowRoot = false
                 root.expandAll()
 
-                cellFormat {
-                    text = it.displayName
-                }
+                cellFragment(FilterableTreeFragment::class)
 
                 populate { item ->
                     if (item.children.isEmpty()) item.value
